@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form</title>
+
+    <style>
+        html, body, #formContainer {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-y: hidden;
+        }
+    </style>
+</head>
+<body>
+
+<div id="formContainer"></div>
+
+<script src="http://demo.visum.io/customer_ui/cdn/visumio-integration-1.3.6.min.js"></script>
+<script>
+    new VisumioIntegration({
+        host: 'https://demo.visum.io',
+        form: '#formContainer',
+        frontendApiKey: '38dcaa2f04386de6a66172208ca07f562af8bc5b46cac9610050411b384aaa30',
+        accessToken: '{{ access_token }}',
+    });
+</script>
+
+</body>
+</html>

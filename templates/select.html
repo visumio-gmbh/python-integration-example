@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select form</title>
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+
+<form action="/create_empty_questionnaire/" method="post">
+    <div>
+        <label for="document_type">Document type:</label>
+        <select id="document_type" name="document_type">
+            <option value="RUSSIAN_APPLICATION">Russian application</option>
+            <option value="INDIAN_APPLICATION">Indian application</option>
+        </select>
+    </div>
+    <div>
+        <button>Go to fill</button>
+    </div>
+</form>
+
+{% for questionnaire in questionnaires %}
+    {% if questionnaire.filling_status == 'FULL_FILLED' %}
+    <div>
+        Questionnaire #{{ questionnaire.id }} for
+        {% if questionnaire.answers.passport_data %}
+            {{ questionnaire.answers.passport_data.surname }}
+            {{ questionnaire.answers.passport_data.name }}
+
+            ({{ questionnaire.document_generation_status }})
+
+            {% if questionnaire.document_generation_status == 'NOT_GENERATED' %}
+                <form style="display: inline-block" action="/{{ questionnaire.id }}/generate_document/" method="post">
+                    <button>Generate document</button>
+                </form>
+            {% elif questionnaire.document_generation_status == 'DONE' %}
+                <form style="display: inline-block" action="/open_document/" method="post">
+                    <button>Open document</button>
+                </form>
+            {% endif %}
+        {% else %}
+            unknown name
+        {% endif %}
+        <form method="post" action="/open_questionnaire/" style="display: inline-block">
+            <input type="hidden" name="access_token" value="{{ questionnaire.access_token }}">
+            <button>Edit</button>
+        </form>
+    </div>
+    {% endif %}
+{% endfor %}
+
+<form action="/create_questionnaire/" method="post">
+    <div>
+        <label for="document_type">Document type:</label>
+        <select id="document_type" name="document_type">
+            <option value="RUSSIAN_APPLICATION">Russian application</option>
+            <option value="INDIAN_APPLICATION">Indian application</option>
+        </select>
+    </div>
+    <button>Create</button>
+</form>
+
+</body>
+</html>

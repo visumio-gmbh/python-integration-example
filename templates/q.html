@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Questionnaire {{ questionnaire.id }}</title>
+
+    <style>
+        html, body, #formContainer {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-y: hidden;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <h3>Questionnaire {{ questionnaire.id }}</h3>
+    <pre style="max-width:800px;overflow-x:hidden;white-space:break-spaces;">
+        {{ questionnaire }}
+    </pre>
+</div>
+
+</body>
+</html>
